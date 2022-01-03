@@ -3,11 +3,11 @@ package com.purpledog.project.error;
 import lombok.Getter;
 
 @Getter
-public class UserNotFoundException extends RuntimeException {
+public class ErrorResponse {
 
 	private final String message;
 
-	public UserNotFoundException(String message){
+	public ErrorResponse(String message) {
 		this.message = message;
 	}
 }

@@ -1,5 +1,6 @@
 package com.purpledog.project.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,13 +21,15 @@ public class UserController {
 	private final UserService userService;
 
 	@PostMapping("/api/v1/user")
-	public String joinUser(@RequestBody UserDto userDto){
-		return userService.save(userDto);
+	public ResponseEntity<String> joinUser(@RequestBody UserDto userDto){
+		String userId = userService.save(userDto);
+		return ResponseEntity.ok(userId);
 	}
 
 	@GetMapping("/api/v1/user/{id}")
-	public UserDto findUserById(@PathVariable String id){
-		return userService.findById(id);
+	public ResponseEntity<UserDto> findUserById(@PathVariable String id){
+		UserDto userDto = userService.findById(id);
+		return ResponseEntity.ok(userDto);
 	}
 
 	@PutMapping("/api/v1/user/{id}")
@@ -38,4 +41,5 @@ public class UserController {
 	public void deleteUserById(@PathVariable String id){
 		userService.delete(id);
 	}
+
 }
