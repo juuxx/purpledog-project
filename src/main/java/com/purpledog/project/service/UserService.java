@@ -7,14 +7,13 @@ import org.springframework.stereotype.Service;
 import com.purpledog.project.controller.dto.UserDto;
 import com.purpledog.project.domain.user.User;
 import com.purpledog.project.domain.user.UserRepository;
+import com.purpledog.project.error.UserNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
 public class UserService {
-
-	private static final String MESSAGE_NOT_FOUND_USER_INFO = "와 일치하는 회원정보가 없습니다.";
 
 	private final UserRepository userRepository;
 
@@ -43,7 +42,7 @@ public class UserService {
 
 	private User findByUser(String id) {
 		return userRepository.findById(id)
-							.orElseThrow(() -> new NullPointerException(id + MESSAGE_NOT_FOUND_USER_INFO));
+							.orElseThrow(() -> new UserNotFoundException(id));
 	}
 
 
